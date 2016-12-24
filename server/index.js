@@ -10,7 +10,29 @@ function bootUp() {
   server = new Hapi.Server()
   server.connection({
     host: 'localhost',
-    port: '8000'
+    port: '8000',
+    routes: {
+      validate: {
+        options: {
+          abortEarly: false
+        },
+        failAction: (request, reply, source, error) => {
+          // custom error message
+          let msg = {
+            error: 'Invalid data',
+            keys: {}
+          };
+          for (var ii = error.data.details.length - 1; ii >= 0; ii--) {
+            msg.keys[error.data.details[ii].path] = {
+              type: error.data.details[ii].type,
+              message: error.data.details[ii].message
+            }
+          }
+          error.output.error_details = error.data.details;
+          reply(msg).code(error.output.statusCode);
+        }
+      }
+    }
   });
 
   require('./static')(server);
