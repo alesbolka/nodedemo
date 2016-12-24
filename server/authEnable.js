@@ -1,4 +1,4 @@
-const privateKey = '$2a$10$Xac5l0d1JzKSC3BAneCzQgoDulcgn13ZDoPxQ3NOSOk3kyDqgOe2';
+const privateKey = require(global.getPath('auth')).privateKey;
 const db = require(global.getPath('mock-db'));
 
 const validate = (decoded, request, callback) => {
@@ -16,7 +16,7 @@ module.exports = (server) => {
       'jwt',
       'jwt',
       {
-        key: 'NeverShareYourSecret',
+        key: privateKey,
         validateFunc: validate,
         verifyOptions: {
           algorithms: [ 'HS256' ]

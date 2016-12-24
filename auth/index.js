@@ -1,1 +1,4 @@
-exports.routes = require('./routes');
+exports.privateKey = require('./key');
+exports.routes = [
+  require('./post')
+]

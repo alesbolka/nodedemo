@@ -37,25 +37,25 @@ function findByUsername (username, cb) {
  *
  * @param  {string}   username
  * @param  {string}   password
- * @param  {Function} cb(boolean)
+ * @param  {Function} cb(Object||undefined)
  */
 function attemptAuth (username, password, cb) {
   if (!username || !password) {
-    return cb(false);
+    return cb(undefined);
   }
 
   // I could avoid the extra callback here, but decided to simulate querying a DB
   findByUsername(username, function (user, err) {
     if (err || user === undefined) {
-      return cb(false);
+      return cb(undefined);
     }
 
     bcrypt.compare(password, user.password, function(err, res) {
       if (err) {
-        return cb(false);
+        return cb(undefined);
       }
 
-      cb(res);
+      cb(user);
     });
   });
 }
