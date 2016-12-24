@@ -1,6 +1,7 @@
 'use strict';
 const bcrypt = require('bcrypt');
 
+let blacklist = {};
 let users = {
   'randomjohn': {
     username: 'randomjohn',
@@ -60,5 +61,16 @@ function attemptAuth (username, password, cb) {
   });
 }
 
+function checkTokenBlacklist(token, cb) {
+  cb(blacklist[token] === undefined);
+}
+
+function blacklistAdd(token, cb) {
+  blacklist[token] = 1;
+  cb();
+}
+
+exports.blacklistAdd = blacklistAdd;
+exports.checkTokenBlacklist = checkTokenBlacklist;
 exports.findByUsername = findByUsername;
 exports.attemptAuth = attemptAuth;

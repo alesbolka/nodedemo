@@ -29,7 +29,6 @@ module.exports = {
         }).code(422);
       }
 
-
       let token = JWT.sign(
         {
           username: user.username,

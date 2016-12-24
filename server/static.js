@@ -8,6 +8,9 @@ module.exports = (server) => {
     server.route({
       method: 'GET',
       path: '/{param*}',
+      config: {
+        auth: false
+      },
       handler: {
         directory: {
           path: global.getPath('frontend', 'dist')
