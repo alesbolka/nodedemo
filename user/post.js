@@ -2,7 +2,30 @@ const db = require(global.getPath('mock-db'));
 const Joi = require('joi');
 
 function createProfile(request, reply) {
-  reply('i got through');
+
+}
+
+function handler(request, reply) {
+  if (request.auth.isAuthenticated) {
+    return reply({error: 'Already authenticated'}).code(403);
+  }
+
+  db.addUser(
+    request.payload.username,
+    request.payload.password,
+    request.payload.email,
+    request.payload.birthdate,
+    (user, err) => {
+      if (err) {
+        return reply({
+          error: 'Invalid data',
+          message: err.message
+        }).code(403);
+      }
+
+      reply('TODO');
+    }
+  );
   // db.findByUsername(request.auth.credentials.username, (user, err) => {
   //   if (err || !user) {
   //     // What to reply to the user in the case we get an error?
@@ -41,5 +64,5 @@ module.exports = {
       }
     }
   },
-  handler: createProfile
+  handler: handler
 };

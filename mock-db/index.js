@@ -12,6 +12,45 @@ let users = {
 };
 
 /**
+ * Add a new user to the db
+ *
+ * @param {string}   username
+ * @param {string}   password
+ * @param {string}   email
+ * @param {string}   birthdate
+ * @param {Function} cb(user, err);
+ */
+function addUser(username, password, email, birthdate, cb) {
+    return cb(null, new Error('Username already exists'));
+  if (users[username]) {
+    return cb(null, new Error('Username already exists'));
+  }
+
+  cb('', null);
+}
+
+/**
+ * Add token to the blacklist
+ *
+ * @param  {string}   token
+ * @param  {Function} cb
+ */
+function blacklistAdd(token, cb) {
+  blacklist[token] = 1;
+  cb();
+}
+
+/**
+ * Check if token is blacklisted
+ *
+ * @param  {string}   token
+ * @param  {Function} cb
+ */
+function checkTokenBlacklist(token, cb) {
+  cb(blacklist[token] === undefined);
+}
+
+/**
  * Find a user by their username
  *
  * @param  {string}   username
@@ -24,10 +63,6 @@ function findByUsername (username, cb) {
 
   if (typeof username !== 'string' || !username.length) {
     return cb(undefined, new Error('Invalid username'));
-  }
-
-  if (!users[username]) {
-    return cb(undefined, new Error('User does not exist'));
   }
 
   cb(users[username], undefined);
@@ -61,16 +96,8 @@ function attemptAuth (username, password, cb) {
   });
 }
 
-function checkTokenBlacklist(token, cb) {
-  cb(blacklist[token] === undefined);
-}
-
-function blacklistAdd(token, cb) {
-  blacklist[token] = 1;
-  cb();
-}
-
+exports.addUser = addUser;
+exports.attemptAuth = attemptAuth;
 exports.blacklistAdd = blacklistAdd;
 exports.checkTokenBlacklist = checkTokenBlacklist;
 exports.findByUsername = findByUsername;
-exports.attemptAuth = attemptAuth;

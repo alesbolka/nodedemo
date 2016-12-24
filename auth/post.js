@@ -16,14 +16,14 @@ module.exports = {
       }
     }
   },
-  handler: (req, res) => {
-    if (req.auth.isAuthenticated) {
-      return res({text: 'Already authenticated'}).code(403);
+  handler: (request, reply) => {
+    if (request.auth.isAuthenticated) {
+      return reply({text: 'Already authenticated'}).code(403);
     }
 
-    db.attemptAuth(req.payload.username, req.payload.password, (user) => {
+    db.attemptAuth(request.payload.username, request.payload.password, (user) => {
       if (!user) {
-        return res({
+        return reply({
           error: 'Invalid credentials',
           message: 'Username and password do not match'
         }).code(422);
@@ -37,7 +37,7 @@ module.exports = {
         privateKey
       );
 
-      res({
+      reply({
         redirectUrl: '/'
       }).header('Authorization', token);
     });
