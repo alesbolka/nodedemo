@@ -1,17 +1,17 @@
 {
-  "name": "Auth demo app",
+  "name": "NodeDemo",
   "version": "1.0.0",
   "description": "NodeJS Demo project",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
-    "server": "node server.js"
+    "server": "node main.js"
   },
   "author": "Ales Bolka",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.1",
     "hapi": "^16.0.2",
-    "hapi-auth-jwt": "^4.0.0",
+    "hapi-auth-jwt2": "^7.2.4",
     "inert": "^4.0.4"
   }
 }

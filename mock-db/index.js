@@ -17,8 +17,6 @@ let users = {
  * @param  {Function} cb(Object, Error)
  */
 function findByUsername (username, cb) {
-  console.log(global.getPath('test', '123', '456'))
-  return;
   if (typeof cb !== 'function') {
     throw new Error('Callback is not a function');
   }
