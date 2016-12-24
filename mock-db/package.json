@@ -1,0 +1,4 @@
+{
+  "name": "mock-db",
+  "main": "./index.js"
+}
