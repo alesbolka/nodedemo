@@ -25,7 +25,7 @@ function handler(request, reply) {
 }
 
 module.exports = {
-  path: '/user',
+  path: '/api/user',
   method: 'POST',
   config: {
     auth: false,

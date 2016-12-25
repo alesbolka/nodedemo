@@ -5,7 +5,7 @@ const JWT = require('jsonwebtoken');
 const tokenValidity = 30 * 60 * 1000; // 30 minutes
 
 module.exports = {
-  path: '/auth',
+  path: '/api/auth',
   method: 'POST',
   config: {
     auth: false,
@@ -29,17 +29,19 @@ module.exports = {
         }).code(422);
       }
 
+      let payload = {
+        username: user.username,
+        exp: (new Date()).getTime() + tokenValidity
+      };
       let token = JWT.sign(
-        {
-          username: user.username,
-          exp: (new Date()).getTime() + tokenValidity
-        },
+        payload,
         privateKey
       );
 
       reply({
-        redirectUrl: '/'
-      }).header('Authorization', token);
+        token: token,
+        expiry: payload.exp
+      });
     });
   }
 };

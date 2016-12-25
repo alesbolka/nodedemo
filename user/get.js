@@ -20,7 +20,7 @@ function getMyProfile(request, reply) {
 }
 
 module.exports = {
-  path: '/user',
+  path: '/api/user',
   method: 'GET',
   config: {
     auth: 'jwt'

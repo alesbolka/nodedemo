@@ -1,7 +1,7 @@
 const db = require(global.getPath('mock-db'));
 
 module.exports = {
-  path: '/auth/logout',
+  path: '/api/auth/logout',
   method: 'GET',
   config: {
     auth: 'jwt'
