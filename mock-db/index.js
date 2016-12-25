@@ -21,12 +21,24 @@ let users = {
  * @param {Function} cb(user, err);
  */
 function addUser(username, password, email, birthdate, cb) {
-    return cb(null, new Error('Username already exists'));
   if (users[username]) {
     return cb(null, new Error('Username already exists'));
   }
 
-  cb('', null);
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (err) {
+      return cb(null, new Error('Password could not be saved'));
+    }
+
+    users[username] = {
+      username:  username,
+      password: hash,
+      email: email,
+      birthdate: birthdate
+    };
+
+    cb(users[username], false);
+  });
 }
 
 /**
