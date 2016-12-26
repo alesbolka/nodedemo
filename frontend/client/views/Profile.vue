@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="profile">
     <h4>Profile of {{profile.username}}</h4>
     <div class="row">
       <b class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
@@ -16,6 +16,9 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    {{emptyMsg}}
+  </div>
 </template>
 
 <script>
@@ -24,6 +27,24 @@
       profile: function () {
         return this.$store.state.profile;
       }
+    },
+    data () {
+      return {
+        emptyMsg: 'Loading...'
+      };
+    },
+    mounted() {
+      if (this.profile) {
+        return;
+      }
+      this.$http.get('/api/user').then(
+        (rsp) => {
+          console.log(rsp);
+        },
+        (err) => {
+          this.emptyMsg = 'This service is unavailable at the moment';
+        }
+      );
     }
   }
 </script>

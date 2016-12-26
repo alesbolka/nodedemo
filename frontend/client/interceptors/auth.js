@@ -4,5 +4,6 @@ const nonAuth = [
   '/api/auth'
 ];
 export default (request, next) => {
+  console.log(request.headers.Authorization);
   next();
 }

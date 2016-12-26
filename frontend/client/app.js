@@ -15,7 +15,10 @@ Vue.http.interceptors.push(authCheck)
 const app = new Vue({
   router,
   store,
-  ...App
+  ...App,
+  created () {
+    this.$store.commit('LoadToken');
+  }
 })
 
 export {app, router, store}

@@ -13,6 +13,11 @@ const state = {
 
 const mutations = (() => {
   return {
+    LoadToken(state) {
+      // if (state.token) {
+      //   Vue.http.headers.common['Authorization'] = state.token;
+      // }
+    },
     Logout(state) {
       delete Vue.http.headers.common['Authorization'];
       state.token = '';
