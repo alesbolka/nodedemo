@@ -12,6 +12,10 @@ function bootUp() {
     host: 'localhost',
     port: '8000',
     routes: {
+      state: {
+        parse: false,
+        failAction: 'ignore'
+      },
       validate: {
         options: {
           abortEarly: false
