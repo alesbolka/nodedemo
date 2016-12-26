@@ -1,7 +1,13 @@
 # Demo NodeJS project
 
-Developed for the purpose of a job interview, a relatively simple task: Create an authentication API service in node that allows a user to register, log in and view their profile. A DB implementation is not required, so it is implemented through a simple DB interface mockup.
-The task also asked for details on the choices made when building the app. Those decisions will be described in this readme.
+Developed for the purpose of a job interview, a relatively simple task:
+
+* A user can create a profile
+* A user can log in with an existing profile
+* A user may view their profile, but only as long as they are logged in
+* A user may log out
+* Backend should use NodeJS to implement an API interface and should implement REST practices
+* There is no need to use an actual database
 
 ## Backend
 
@@ -19,4 +25,35 @@ I found **Hapi** to have a small but healthy community, positive feedback from d
 
 ### Serving static content
 
-Usually, I would set up Nginx to handle static file serving (the frontend files), but as the task did not involve it, I used the [inert](https://github.com/hapijs/inert) package to handle static files. I am siply serving the whole frontend package from the base url (*localhost:8080* returns *index.html*).
+Usually, I would set up Nginx to handle static file serving (the frontend files), but as the task did not involve it, I used the [inert](https://github.com/hapijs/inert) package to handle static files. I am siply serving the whole frontend package from the base url (*localhost:8000* returns *index.html*).
+
+### Database & Authentication
+
+As the task stated DB implementation is not necessary, I implemented it as a simple js object and simulated how a DB query would be executed in JS. I also allowed myself the luxury of avoiding user IDs and just using the username as the unique identifier.
+
+The next step required me to choose the method of authentication. As JWT have become the commonly used approach, I decided to try my hand at implementing them. Besides not needing any server-side storage, they are stateless which is a requirement for a proper REST approach.
+I also implemented a token "blacklist", which stores all invalidated tokens to prevent continued authentication once a user logs out.
+
+### Misc
+
+I did some light data validation with [Joi](https://github.com/hapijs/joi), which was chosen simply due to being the most popular choice in the hapi community.
+A default user is prepared in the db by default with the username *randomjohn* and password *test211*.
+
+Various improvements could have been made:
+* various sensitive configuration information (such as the token private key, DB connection details, server port...) are included in the base project instead of a separate file. This is a high security risk for a commercial application, but the safety was ignored for this demo. Oridnarily, I would include those settings in a separate json file or server setup script, which is then not included in the code repository.
+* Tests - simply put, I ran out of time to write automated tests for the code
+
+## Frontend
+
+### Vue.js
+
+My only relevant work experience comes from jQuery (and PHP), so I am working on the outskirts of modern frameworks when it comes to front end development. I have tried learning Angular 2, but found learning Typescript AND Angular at the same time a bit too challenging (plus, at the time Angular 2 was not officially released yet). I dipped my toes into react, but did not feel at home with the JSX syntax and the "html in JS" approach. I can see the uses, but I preferred it the other way around, so I decided to learn Vue, which looked very promising. I've been working on a separate project with it since, but am still learning. With that in mind, I decided to use Vue here as well.
+
+### Shortcuts
+
+Due to various time constraints, I was forced to cut corners a bit:
+
+* I used [vuepack](https://github.com/egoist/vuepack) to generate the basic template for the website
+* Design time was nonexistant, so the whole site looks very basic. Bootstrap 3 was used for CSS, with some vue-component modifications. A proper solution would have involved a SASS stylesheet with properly defined common classes, but I was having issues getting it to work with the webpack hotload and compiler, so I let it be.
+* The JWT is stored as a cookie, but used in the header of requests. A token refresh method was not implemented (I started writing a simple method to request a new token and invalidate an old one, but found it insecure and ran out of time to implement a proper solution)
+* As mentioned earlier, I am simply serving all the frontend as static files. Because of that, the vue router uses *#* to differentiate between routes. On a production server, I would have configured nginx to serve the same index.html regardless of the path and used the HTML5 history mode for navigation (cleaner URLs and better experience for most users).
