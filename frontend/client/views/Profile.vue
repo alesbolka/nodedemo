@@ -1,5 +1,5 @@
 <template>
-  <div v-if="profile">
+  <div v-if="profile" class="col-xs-12 col-md-6 col-md-offset-3">
     <h4>Profile of {{profile.username}}</h4>
     <div class="row">
       <b class="col-xs-12 col-sm-4 col-md-3 col-lg-2">

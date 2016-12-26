@@ -66,8 +66,8 @@ export default {
     let newAcc = this.$store.state.accCreated;
     this.$store.commit('RemoveAccCrFlag');
     return {
-      username: 'randomjohn',
-      password: 'test211',
+      username: '',
+      password: '',
       newAcc: newAcc,
       authError: ''
     }
@@ -80,12 +80,16 @@ export default {
         password: this.password
       }).then(
         (rsp) => { // Success
-          this.$store.commit('NewToken', {
+          let payload = {
             token: rsp.body.token,
             expiry: rsp.body.expiry,
             profile: rsp.body.profile
+          };
+
+          this.$store.dispatch('NewToken', payload).then(()=>{
+            console.log(this.$router.push('profile'));
+            // this.$router.push('myprofile');
           });
-          this.$router.push('/');
         },
         (rsp) => { // Fail
           if (rsp.status === 422) {

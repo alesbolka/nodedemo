@@ -8,6 +8,7 @@ import store from './store'
 
 Vue.use(VueCookie)
 Vue.use(VueResource)
+sync(store, router);
 
 const app = new Vue({
   router,

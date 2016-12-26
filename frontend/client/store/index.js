@@ -67,6 +67,13 @@ const mutations = (() => {
 })()
 
 const actions = {
+  NewToken(context, payload) {
+    return new Promise((resolve, reject) => {
+      // console.log(conte, payload);
+      context.commit('NewToken', payload);
+      resolve();
+    });
+  }
 }
 
 const getters = (() => {
