@@ -4,20 +4,22 @@
       <a href="#/">
         Demo app
       </a>
-      <a
-        class="btn btn-primary pull-right"
-        href="#/login"
-        v-if="!authed"
-      >
-        Login
-      </a>
-      <div
-        class="btn btn-primary pull-right"
-        @click="logout"
-        v-else
-      >
-        Logout
-      </div>
+      <span v-show="showAuth">
+        <a
+          class="btn btn-primary pull-right"
+          href="#/login"
+          v-if="!this.$store.getters.authStatus"
+        >
+          Login
+        </a>
+        <div
+          class="btn btn-primary pull-right"
+          @click="logout"
+          v-else
+        >
+          Logout
+        </div>
+      </span>
     </div>
   <!-- this.$store.getters.authStatus -->
     <div class="container">
@@ -29,8 +31,8 @@
 <script>
   export default {
     computed: {
-      authed () {
-        return this.$store.getters.authStatus;
+      showAuth () {
+        return this.$route.name !== 'login';
       }
     },
     methods: {
@@ -77,5 +79,7 @@
 
   #master-header {
     height: 30px;
+    background-color: #1F3522;
+    color: #fff;
   }
 </style>

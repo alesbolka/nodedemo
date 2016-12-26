@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const state = {
   count: 0,
   token: '',
+  profile: {},
   expiry: new Date()
 }
 
@@ -14,11 +15,14 @@ const mutations = (() => {
     Logout(state) {
       delete Vue.http.headers.common['Authorization'];
       state.token = '';
+      state.profile = {};
       state.expiry = new Date();
       state.expiry.setSeconds(state.expiry.getSeconds() - 10);
     },
     NewToken(state, payload) {
       Vue.http.headers.common['Authorization'] = payload.token;
+      state.profile = payload.profile || {};
+      state.profile.birthdate = new Date(state.profile.birthdate);
       state.token = payload.token;
       state.expiry = new Date(payload.expiry);
     },

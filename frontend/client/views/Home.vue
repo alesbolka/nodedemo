@@ -1,22 +1,27 @@
 <template>
-  <div class="page">
-    <counter :is="useComponent"></counter>
-    <p>
-      To get started, edit files in <code>./client</code> and save.
+  <div v-if="this.$store.getters.authStatus">
+    Welcome {{ username }}, you can view your profile <router-link to="profile">here</router-link>.
+  </div>
+  <div class="mt-5 clearfix" v-else>
+    <p class="text-center mt-5">
+      Welcome to the demo app, please <router-link to="login">log in</router-link> to see your user profile.
     </p>
   </div>
 </template>
 
 <script>
-import Counter from 'components/Counter'
+import Profile from 'views/Profile';
 
 export default {
   components: {
-    Counter
+    Profile
   },
   computed: {
     useComponent () {
-      return 'Counter';
+      return 'Counter2';
+    },
+    username () {
+      return this.$store.state.profile.username;
     }
   }
 }

@@ -27,7 +27,20 @@
         >
       </div>
       <div class="col-xs-12 mt-5 text-center">
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
+          Sign in
+        </button>
+
+        <router-link
+          class="btn btn-success"
+          type="submit"
+          to="signup"
+        >
+          Sign up
+        </router-link>
       </div>
     </form>
   </div>
@@ -62,7 +75,8 @@ export default {
         (rsp) => { // Success
           this.$store.commit('NewToken', {
             token: rsp.body.token,
-            expiry: rsp.body.expiry
+            expiry: rsp.body.expiry,
+            profile: rsp.body.profile
           });
           this.$router.push('/');
         },

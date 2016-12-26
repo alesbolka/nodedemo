@@ -40,7 +40,12 @@ module.exports = {
 
       reply({
         token: token,
-        expiry: payload.exp
+        expiry: payload.exp,
+        profile: {
+          username: user.username,
+          email: user.email,
+          birthdate: user.birthdate
+        }
       });
     });
   }
