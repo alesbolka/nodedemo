@@ -40,7 +40,7 @@ I did some light data validation with [Joi](https://github.com/hapijs/joi), whic
 A default user is prepared in the db by default with the username *randomjohn* and password *test211*.
 
 Various improvements could have been made:
-* various sensitive configuration information (such as the token private key, DB connection details, server port...) are included in the base project instead of a separate file. This is a high security risk for a commercial application, but the safety was ignored for this demo. Oridnarily, I would include those settings in a separate json file or server setup script, which is then not included in the code repository.
+* various sensitive configuration information (such as the token private key, DB connection details...) are included in the base project instead of a separate file. This is a high security risk for a commercial application, but the safety was ignored for this demo. Oridnarily, I would include those settings in a separate json file or server setup script, which is then not included in the code repository.
 * Tests - simply put, I ran out of time to write automated tests for the code
 
 ## Frontend

@@ -10,6 +10,5 @@ global.getPath = function () {
   return Path.join.apply(null, [__dirname].concat(Array.prototype.slice.call(arguments)));
 };
 
-
-require('./server').bootUp();
+require('./server').bootUp(process.argv[2]);
 

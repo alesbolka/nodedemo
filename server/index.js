@@ -2,7 +2,8 @@ const Hapi = require('hapi');
 
 let server;
 
-function bootUp() {
+function bootUp(port) {
+  port = port || 8000;
   if (server) {
     return console.error('Server already booted up');
   }
@@ -10,7 +11,7 @@ function bootUp() {
   server = new Hapi.Server()
   server.connection({
     host: 'localhost',
-    port: '8000',
+    port: port,
     routes: {
       state: {
         parse: false,
