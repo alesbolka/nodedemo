@@ -22,7 +22,9 @@ let users = {
  */
 function addUser(username, password, email, birthdate, cb) {
   if (users[username]) {
-    return cb(null, new Error('Username already exists'));
+    let err = new Error('Username already exists');
+    err.code = 1;
+    return cb(null, err);
   }
 
   bcrypt.hash(password, 10, (err, hash) => {
@@ -99,7 +101,7 @@ function attemptAuth (username, password, cb) {
     }
 
     bcrypt.compare(password, user.password, function(err, res) {
-      if (err) {
+      if (err || !res) {
         return cb(undefined);
       }
 

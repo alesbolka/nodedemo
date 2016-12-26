@@ -1,24 +1,22 @@
 <template>
-  <div v-if="this.$store.getters.authStatus">
-    Welcome {{ username }}, you can view your profile <router-link to="profile">here</router-link>.
-  </div>
-  <div class="mt-5 clearfix" v-else>
-    <p class="text-center mt-5">
-      Welcome to the demo app, please <router-link to="login">log in</router-link> to see your user profile.
-    </p>
-  </div>
+  <component :is="useComponent"></component>
 </template>
 
 <script>
 import Profile from 'views/Profile';
+import Login from 'views/Login';
 
 export default {
   components: {
-    Profile
+    Profile,
+    Login
   },
   computed: {
     useComponent () {
-      return 'Counter2';
+      if (this.$store.getters.authStatus) {
+        return 'Profile';
+      }
+      return 'Login';
     },
     username () {
       return this.$store.state.profile.username;

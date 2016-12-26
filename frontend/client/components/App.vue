@@ -1,27 +1,18 @@
 <template>
   <div id="master">
     <div id="master-header">
-      <a href="#/">
-        Demo app
+      <a id="logo" href="#/">
+        NodeJS Demo Auth app
       </a>
-      <span v-show="showAuth">
-        <a
-          class="btn btn-primary pull-right"
-          href="#/login"
-          v-if="!this.$store.getters.authStatus"
-        >
-          Login
-        </a>
+      <span id="logbtn" v-show="this.$store.getters.authStatus">
         <div
           class="btn btn-primary pull-right"
           @click="logout"
-          v-else
         >
           Logout
         </div>
       </span>
     </div>
-  <!-- this.$store.getters.authStatus -->
     <div class="container">
       <router-view></router-view>
     </div>
@@ -30,11 +21,6 @@
 
 <script>
   export default {
-    computed: {
-      showAuth () {
-        return this.$route.name !== 'login';
-      }
-    },
     methods: {
       logout() {
         this.$http.get('/api/auth/logout').then(
@@ -78,8 +64,25 @@
   }
 
   #master-header {
-    height: 30px;
+    height: 40px;
     background-color: #1F3522;
+    padding: 0 12px;
     color: #fff;
+    line-height: 40px;
+  }
+
+  #logo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #logbtn > .btn {
+    margin-top: 3px;
+  }
+
+  .btn-success {
+    background-color: #1F3522;
+    border-color: #1F3522;
   }
 </style>

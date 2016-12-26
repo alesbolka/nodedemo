@@ -15,8 +15,9 @@ function handler(request, reply) {
       if (err) {
         return reply({
           error: 'Invalid data',
-          message: err.message
-        }).code(403);
+          message: err.message,
+          code: err.code
+        }).code(406);
       }
 
       reply({message: "user created"});

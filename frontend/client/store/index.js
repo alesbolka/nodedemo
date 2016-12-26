@@ -5,9 +5,10 @@ Vue.use(Vuex)
 
 const state = {
   count: 0,
-  token: '',
+  expiry: new Date(),
   profile: {},
-  expiry: new Date()
+  accCreated: false,
+  token: ''
 }
 
 const mutations = (() => {
@@ -26,21 +27,16 @@ const mutations = (() => {
       state.token = payload.token;
       state.expiry = new Date(payload.expiry);
     },
-    INCREMENT(state) {
-      state.count++
+    AccCreated(state) {
+      state.accCreated = true;
     },
-    DECREMENT(state) {
-      state.count--
+    RemoveAccCrFlag(state) {
+      state.accCreated = false;
     }
   }
 })()
 
 const actions = {
-  incrementAsync({commit}) {
-    setTimeout(() => {
-      commit('INCREMENT')
-    }, 200)
-  }
 }
 
 const getters = (() => {
