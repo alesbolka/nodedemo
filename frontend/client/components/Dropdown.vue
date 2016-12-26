@@ -1,7 +1,6 @@
 <template>
   <div
     class="dropdown"
-    @test="setDay"
     :class="{open: isOpen}"
   >
     <slot name="button">
@@ -43,13 +42,6 @@
             document.onclick = undefined;
           };
         }, 0);
-      },
-      // onBlur (e) {
-      //   console.log(e);
-      //   this.isOpen = false;
-      // },
-      setDay () {
-        console.log('dd');
       },
       toggle () {
         this.isOpen = !this.isOpen;

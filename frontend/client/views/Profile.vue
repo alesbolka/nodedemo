@@ -39,7 +39,7 @@
       }
       this.$http.get('/api/user').then(
         (rsp) => {
-          console.log(rsp);
+          this.$store.commit('SaveProfile', rsp.body);
         },
         (err) => {
           this.emptyMsg = 'This service is unavailable at the moment';
